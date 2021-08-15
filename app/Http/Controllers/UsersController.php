@@ -131,10 +131,10 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         $nomeImg = $user->avatar;
-        $nomeImg = explode('img/avatar',$nomeImg);
+        $nomeImg = explode('img/avatar/',$nomeImg);
         $nomeImg = $nomeImg[1];
-        if(file_exists(public_path("img/avatar".$nomeImg))){
-            unlink(public_path("img/avatar".$nomeImg));
+        if(file_exists(public_path("img/avatar/".$nomeImg ))){
+            unlink(public_path("img/avatar/".$nomeImg));
         }
         return redirect()->route('users.index');
     }
