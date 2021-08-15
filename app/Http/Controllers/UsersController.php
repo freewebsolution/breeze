@@ -65,7 +65,7 @@ class UsersController extends Controller
         $data = [
             'user'=>$user,
         ];
-        return  view('sections.users.edit');
+        return  view('sections.users.edit')->with('data',$data);
 
     }
 
