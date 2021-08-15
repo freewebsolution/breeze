@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/users', function () {
-    return view('sections.users.index');
-})->middleware(['auth'])->name('users.index');
+//Route::get('/users', function () {
+//    return view('sections.users.index');
+//})->middleware(['auth'])->name('users.index');
+
+Route::resource('users',UsersController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
