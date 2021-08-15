@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -128,14 +129,19 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        $nomeImg = $user->avatar;
-        $nomeImg = explode('img/avatar/',$nomeImg);
-        $nomeImg = $nomeImg[1];
-        if(file_exists(public_path("img/avatar/".$nomeImg ))){
-            unlink(public_path("img/avatar/".$nomeImg));
+        if(Gate::denies('guest')){
+            $user = User::findOrFail($id);
+            $user->delete();
+            $nomeImg = $user->avatar;
+            $nomeImg = explode('img/avatar/',$nomeImg);
+            $nomeImg = $nomeImg[1];
+            if(file_exists(public_path("img/avatar/".$nomeImg ))){
+                unlink(public_path("img/avatar/".$nomeImg));
+            }
+            return redirect()->route('users.index');
+        }else{
+            return abort(401);
         }
-        return redirect()->route('users.index');
+
     }
 }

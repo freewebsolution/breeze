@@ -71,6 +71,7 @@ text-right border-b border-gray-200 md:px-6 md:whitespace-no-wrap">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                             </svg>
                                         </a>
+                                        @can('admin')
                                         <form action="{{route('users.destroy',
 $user->id)}}" method="POST" class="">
                                             @csrf
@@ -85,6 +86,7 @@ border-red-200 rounded-md hover:bg-red-100">
  </button>
  </span>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
