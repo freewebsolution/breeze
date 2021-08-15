@@ -128,6 +128,14 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        $nomeImg = $user->avatar;
+        $nomeImg = explode('img/avatar',$nomeImg);
+        $nomeImg = $nomeImg[1];
+        if(file_exists(public_path("img/avatar".$nomeImg))){
+            unlink(public_path("img/avatar".$nomeImg));
+        }
+        return redirect()->route('users.index');
     }
 }
